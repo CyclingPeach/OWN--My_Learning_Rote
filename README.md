@@ -3,7 +3,8 @@ This is my first repository【我的第一个资料库，仅用来记录我的�
 
 
 **2022年1月24日·某星培训**
-**[【题目 1】]**(https://github.com/CyclingPeach/My_Learning_Rote/blob/master/BFS/%E6%95%B0%E5%AD%97%E5%8F%98%E6%8D%A2%E9%A2%98.md)
+
+**[【题目 1】](https://github.com/CyclingPeach/My_Learning_Rote/blob/master/BFS/%E6%95%B0%E5%AD%97%E5%8F%98%E6%8D%A2%E9%A2%98.md)**
 
     给定两个四位数的数字，将第一个数字转换为第二个数字
 
