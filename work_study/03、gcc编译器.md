@@ -50,3 +50,68 @@ int main(){
 - 终端输出`Hello World!`
 
 #### 2、使用gcc编译多个文件
+- 加减功能
+    - 以有文件：`sub.h`、`sub.c`、`main.c`
+    - 编译命令：`gcc sub.c main.c -o sub`>>>`sub`
+    - 运行程序：`./sub`
+```C
+// sub.h
+#ifndef SUB_H
+#define SUB_H
+
+int add(int, int);
+int sub(int, int);
+#endif
+```
+```C
+// sub.c
+int add(int x, int y){
+	return x+y;
+}
+
+int sub(int x, int y){
+	return x-y;
+}
+```
+```C
+// main.c
+#include<stdio.h>
+#include<stdlib.h>
+#include "sub.h"
+
+int main(){
+	int a=5;
+	int b=2;
+	printf("a+b = %d\n",add(a,b));
+	printf("a-b = %d\n",sub(a,b));
+	return 0;
+}
+```
+
+
+
+- 将`sub.c`编译成库文件，编译`main.c`时链接该库文件
+    - 
+    - 修改main.c（如下）
+    - `gcc -c sub.c -o sub.o`>>>`sub.o`
+    - `ar -rc libsub.a sub.o`>>>`libsub.a`库文件(静态库)
+    - `gcc main.c -o sub -L .-l sub`>>>`sub`
+
+```C
+// main.c
+#include<stdio.h>
+#include<stdlib.h>
+#include "sub.h"
+
+// 加入以下两句，调用sub库里的函数
+int add(int x, int y);
+int sub(int x, int y);
+
+int main(){
+	int a=5;
+	int b=2;
+	printf("a+b = %d\n",add(a,b));
+	printf("a-b = %d\n",sub(a,b));
+	return 0;
+}
+```
