@@ -27,3 +27,26 @@
 
 
 # 二、练习
+
+#### 1、g++编译c++程序练习
+`HelloWorld.cpp`
+```C++
+using namespace std;
+#include <iostream>
+int main(){
+    cout << "Hello World!\n";
+    return 0;
+}
+```
+【说明】
+- `g++`是将`gcc`默认语言设为`C++`的一个特殊版本。
+- 链接时，它使用`C++`标准库，而不使用`C`标准库。
+- 使用`gcc`编译`C++`程序也是可以的，但是需要在编译语句中加上`-lstdc++`
+    - `gcc HelloWorld.cpp -lstdc++`
+
+【编译】
+- `g++ HelloWorld.cpp`>>>`a.out`
+- 终端输入`./a.out`
+- 终端输出`Hello World!`
+
+#### 2、使用gcc编译多个文件
