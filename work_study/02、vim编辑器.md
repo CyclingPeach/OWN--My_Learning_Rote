@@ -7,7 +7,7 @@
 - Insert Mode
 - Last line Mode
 
-### 1）Command Mode
+### （1）Command Mode
 
 
 ## 3、
