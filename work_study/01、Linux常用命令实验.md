@@ -3,6 +3,13 @@
 - 直接输入命令就是在默认PATH目录下搜索命令
 - 也可以用命令的绝对路径执行
 - 也可以是相对路径
+
+```bash
+tzy@MBK:~$ echo $PATH
+```
+`/home/tzy/.nvm/versions/node/v16.14.2/bin:/home/tzy/Software/miniconda3/condabin:/home/tzy/Software/mongodb/bin:/home/tzy/.local/bin:/home/tzy/Software/mongodb/bin:/home/tzy/nodejs/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/etc/nodejs//bin:/usr/local/etc/nodejs//bin`
+
+
 # 1、基本命令
 ## （1） 关机和重启
 |序号|命令|作用|备注|
@@ -25,17 +32,27 @@ sudo apt-get install manpages-posix manpages-posix-dev
 ## （3）`pwd`命令
 |序号|命令|作用|
 |:-:|:-|:-:|
-|1|`pwd`|查看当前目录|
+|1|`pwd`|`查看当前目录`|
 ##  （4）`ps`查看进程
 `ps` = `Process Status`缩写
-|序号|命令|作用|
-|:-:|:-|:-:|
-|1|`ps`|【疑问】`ps`命令与`ps -ef`命令的区别|
-|2|`ps -ef`|当前时刻（执行`ps`命令时）的进程|
+|序号|命令|作用||
+|:-:|:-|:-:|:-:|
+|1|`ps`|列出系统中当前运行的那些进程（执行`ps`命令的那个时刻的那些进程）|`Process Status`|
+|2|`ps -ef`|查看所有正在运行的进程|
 |3|`top`|动态的进程显示信息|
+|4|`ps -axjf`|列出类似进程树的程序显示|
+**`ps`与`grep`的组合用法**
+- 查找特定进程
+`ps -ef | grep ssh`:
 ## （5）`kill`结束进程
+- `kill pid`或`kill -9 pid`（强制杀死进程）
+- `kill -l`列出所有`kill`的可用信号
 
 ## （6）`ifconfig`查看网卡信息
+- `ifconfig`或`ifconfig | more`
+- 安装命令
+`sudo apt-get install net-tools`
+
 
 ## （7）`ping`查看与某台机器的连接情况
 
@@ -50,9 +67,9 @@ sudo apt-get install iputils-ping
 |:-:|:-|:-|
 |1|`cd /`|切换到根目录|
 |2|`cd /usr`|切换到根目录下的`usr`目录|
-|3|`cd ../`或`cd ..`|切换到上一级目录|
+|**3**|**`cd ../`或`cd ..`**|切换到上一级目录|
 |4|`cd ~`|切换到`home`目录|
-|5|`cd -`|切换到上次访问的目录|
+|**5**|**`cd -`**|切换到上次访问的目录|
 ## （2）查看目录
 |序号|命令|作用|
 |:-:|:-|:-|
@@ -67,14 +84,95 @@ sudo apt-get install iputils-ping
 |:-:|:-|:-|:-:|
 |1|`mkdir aaa`||
 |2|`mkdir aaa/bbb`|在`aaa`目录下创建`bbb`目录|前提是`aaa`目录存在，否则无法创建|
-|3|`mkdir -p ccc/ddd`|在`ccc`目录创建`ddd`目录|若`ccc`目录不存在则自动创建|
+|3|**`mkdir -p ccc/ddd`**|在`ccc`目录创建`ddd`目录|若`ccc`目录不存在则自动创建|
 
-## （4）
+## （4）删除文件
+|序号|命令|作用|说明|
+|:-:|:-|:-|:-:|
+||`rm 文件`|删除文件||
+||`rm -f 文件`|删除文件（不询问）||
+||``|||
+||`rm -r 目录`|递归删除目录||
+||`rm -rf 目录`|递归删除目录（不询问）||
+||``|||
+||`rm -rf *`|删除当前目录下的所有文件和目录（不询问）||
+
+## （5）目录操作
+|序号|命令|作用|说明|
+|:-:|:-|:-|:-:|
+||`mv aaa bbb`|重命名||
+||`mv aaa/bbb .`|将aaa内的bbb目录移动至`当前目录`||
+||``|||
+||`cp -r -p aa bb`|`保持文件属性`把aa目录复制到bb目录下||
+||`cp -r bbb ccc`|将bbb目录复制到ccc目录下||
+
+## （6）`find`搜索目录
+- `find /tmp -name 'a*`查找/tmp目录下所有以a开头的`文件和目录`
+
+
 
 # 3、文件操作命令
+- 新建文件
+touch 文件名
+- 查看文件
+
+|命令|作用|
+|:-:|:-:|
+|`cat`|看最后一屏|
+|`more`|百分比显示，内容比较多的文件只显示一部分，按`空格`后再继续显示|
+|`less`|翻页查看|
+|`tail`|指定行数或动态查看|
+
+- 查看文件/文件夹权限
+    - `ls -l`查看当前文件夹下所有的文件和文件夹的权限
+    - `ls -ld`查看当前文件夹的权限
+
+- 修改文件权限
+    - `rwx`
+        - `r`代表可读
+        - `w`可写
+        - `x`代表该文件是一个可执行文件
+    - 举例
+        - `aaa.txt`的文件权限是`-rw-------`
+            - 一共`10位`
+            - 第一位：`-`表示文件；`d`表示文件夹
+            - 第一段（3位）：代表`拥有者的权限`
+            - 第二段（3位）：代表`拥有者的所在的组，组员的权限`
+            - 第三段（3位）：代表`其他用户的权限`
+    - 修改权限(`chmod`或`8421法`)
+        - 添加权限（给aaa.txt添加可执行权限）
+            - chmod +x aaa.txt
+        - 删除权限（给aaa.txt删除可执行权限）
+            - chmod -x aaa.txt
+
+    - 压缩文件
+        - Windows下的文件压缩拓展名：`zip/rar`
+        - Linux下
+            - 打包文件：`aa.tar`
+            - 压缩文件：`aa.gz`
+            - 打包并压缩：`aa.tat.gz`
+        - 命令：`tar -zcvf 打包压缩后的文件名 文件/文件夹 `
+            - `z`调用gzip压缩命令进行压缩，指定压缩解压程序，不写的话系统会自动设定
+            - `c`打包文件
+            - `v`显示运行过程
+            - `f`指定文件名
+        - 举例
+            - 打包该目录下所有的文件并指定文件名为`xxx.tar`
+            - `tar -zcvf all.tar aa.txt bb.txt cc.txt`
+            - 或者`tar -zcvf all.tar *`
+    
+    - 解压文件
+        - 命令：`tar -zxvf 压缩文件`
+        - `x`代表解压
+        - 举例
+            - 将all.tar解压到当前目录下
+                - `tar -zxvf all.tar`
+            - 将/usr/tmp下的all.tar解压到根目录
+                - `tar -xvf all.tar -C /usr`
 
 
-## （2）查看那目录
+
+
 # 4、查找命令
 
 # 5、`su`和`sudo`
