@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 make.exe --dry-run --always-make --keep-going --print-directory
 'make.exe' �����ڲ����ⲿ���Ҳ���ǿ����еĳ���
 ���������ļ���
+=======
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/tzy/文档/Project/My_Learning_Rote'
+make: Leaving directory '/home/tzy/文档/Project/My_Learning_Rote'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+>>>>>>> b8459a6c6929eb8a9172cf687df3c554a50d2a21
 
